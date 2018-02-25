@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="TextBoxCons" HorizontalAlignment="Left" Height="23" Margin="182,160,0,0" TextWrapping="Wrap" Text="Set" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBoxCons" HorizontalAlignment="Left" Height="117" Margin="29,60,0,0" TextWrapping="Wrap" Text="Initialized" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="OpenB" Content="(Dis)Connect" HorizontalAlignment="Left" Margin="29,25,0,0" VerticalAlignment="Top" Width="75" Click="OpenB_Click"/>
+        <Label Content="SQL manipulate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="29,182,0,0"/>
+        <TextBox x:Name="InBox" HorizontalAlignment="Left" Height="23" Margin="29,234,0,0" TextWrapping="Wrap" Text="In" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="OutBox" HorizontalAlignment="Left" Height="23" Margin="171,234,0,0" TextWrapping="Wrap" Text="Out" VerticalAlignment="Top" Width="120"/>
+        <ListBox x:Name="ColBox" HorizontalAlignment="Left" Height="100" Margin="331,182,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="ReadData" Content="ReadData" HorizontalAlignment="Left" Margin="331,142,0,0" VerticalAlignment="Top" Width="75" Click="ReadData_Click"/>
+        <Button x:Name="TestButton" Content="TestSQL" HorizontalAlignment="Left" Margin="409,25,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Click"/>
 
     </Grid>
 </Window>

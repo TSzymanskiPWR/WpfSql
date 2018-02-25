@@ -20,14 +20,29 @@ namespace WpfSql
     /// </summary>
     public partial class MainWindow : Window
     {
+        mySql msql = new mySql();
         public MainWindow()
         {
             InitializeComponent();
 
+        }
 
-            TextBoxCons.Text = "Check text console";
+        public void OpenB_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxCons.Text != "Connected")
+            { TextBoxCons.Text = msql.mySQLopen(); }
+            else { TextBoxCons.Text = msql.mySQLclose(); }
+        }
 
+        private void ReadData_Click(object sender, RoutedEventArgs e)
+        {
+            TextBoxCons.Text = msql.mySQLdataRead();
+        }
 
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextBoxCons.Text += msql.mySQLcmd("INSERT INTO table (Name, Number) " + "Values ('Tom', 5)");
+            TextBoxCons.Text += msql.mySQLdataRead();
         }
     }
 }
