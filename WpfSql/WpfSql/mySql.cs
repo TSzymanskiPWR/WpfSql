@@ -23,12 +23,12 @@ namespace WpfSql
             try
             {
                 mySQLconn.Open();
-                ret = "Connected";
+                ret = "Connected\n";
             }
             catch(Exception e)
             {
                 // TextBoxCons.Text(e.ToString());
-                ret = "Error";
+                ret = "Error\n";
             }
             return ret;
 }
@@ -41,39 +41,46 @@ namespace WpfSql
             }
             catch (Exception e)
             {
-                return "Error";
+                return "Error\n";
             }
-            return "Disconnected";
+            return "Disconnected\n";
         }
 
-        public string mySQLcmd(string cmdtext)
+        public string mySQLcmd()
         {
-            SqlCommand myCmd = new SqlCommand(this.cmdtext, mySQLconn);
 
-            return cmdtext;
+            SqlCommand insertCommand = new SqlCommand("INSERT INTO MyTab (Name, Number) VALUES ('test string', 1234)", mySQLconn);
+
+            // In the command, there are some parameters denoted by @, you can 
+            // change their value on a condition, in my code they're hardcoded.
+
+            //insertCommand.Parameters.Add(new SqlParameter("0", "test string"));
+            //insertCommand.Parameters.Add(new SqlParameter("1", 12345));
+            
+            return "Inserted cmd\n";
+
         }
 
         public string mySQLdataRead()
         {
             string dataRead = "";
-            /*try
+            try
             {
                 SqlDataReader myReader = null;
-                SqlCommand myCommand = new SqlCommand("select * from table",
-                                                         mySQLconn);
+                SqlCommand myCommand = new SqlCommand("select * from MyTab", mySQLconn);
                 myReader = myCommand.ExecuteReader();
                 while (myReader.Read())
                 {
-                    dataRead = myReader["Column1"].ToString();
-
+                    dataRead += myReader["Name"].ToString();
+                    dataRead += "\nRead\n";
                 }
             }
             catch (Exception e)
             {
-                dataRead = "Error";
-            }*/
-
-            SqlCommand command = new SqlCommand("SELECT * FROM MyDataTable WHERE FirstColumn = @0", mySQLconn);
+                dataRead += "ErrorInsert";
+            }
+            /*
+            SqlCommand command = new SqlCommand("SELECT * FROM MySQL.dbo.MyTab WHERE Name = @0", mySQLconn);
             // Add the parameters.
             command.Parameters.Add(new SqlParameter("0", 1));
 
@@ -85,8 +92,9 @@ namespace WpfSql
                     dataRead += String.Format("{0} \t | {1} \t |",
                         reader[0], reader[1]);
                 }
+                dataRead += "\n Done";
             }
-
+            */
 
 
             return dataRead;

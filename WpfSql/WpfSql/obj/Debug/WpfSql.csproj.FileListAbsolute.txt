@@ -15,4 +15,3 @@ C:\Users\t\Documents\GitHub\WpfSql\WpfSql\WpfSql\obj\Debug\WpfSql.exe
 C:\Users\t\Documents\GitHub\WpfSql\WpfSql\WpfSql\obj\Debug\WpfSql.pdb
 C:\Users\t\Documents\GitHub\WpfSql\WpfSql\WpfSql\obj\Debug\OknoSQL.g.cs
 C:\Users\t\Documents\GitHub\WpfSql\WpfSql\WpfSql\obj\Debug\OknoSQL.baml
-C:\Users\t\Documents\GitHub\WpfSql\WpfSql\WpfSql\obj\Debug\WpfSql_Content.g.cs

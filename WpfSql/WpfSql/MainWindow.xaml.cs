@@ -36,13 +36,13 @@ namespace WpfSql
 
         private void ReadData_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxCons.Text = msql.mySQLdataRead();
+            TextBoxCons.Text += msql.mySQLdataRead();
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxCons.Text += msql.mySQLcmd("INSERT INTO table (Name, Number) " + "Values ('Tom', 5)");
-            TextBoxCons.Text += msql.mySQLdataRead();
+            TextBoxCons.Text += msql.mySQLcmd();
+            //TextBoxCons.Text += msql.mySQLdataRead();
         }
     }
 }
