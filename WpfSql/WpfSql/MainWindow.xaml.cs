@@ -23,70 +23,32 @@ namespace WpfSql
     public partial class MainWindow : Window
     {
 
- 
+        MySql msql = new MySql();
 
         public MainWindow()
         {
-
             InitializeComponent();
-
-
-
-
-
-
-
+            TextBoxCons.Text = "Initzialized\n";
+            OpenB.Visibility = System.Windows.Visibility.Visible;
 
         }
 
         public void OpenB_Click(object sender, RoutedEventArgs e)
         {
-            string provider = ConfigurationManager.AppSettings["provider"];
-            string connectionString = ConfigurationManager.AppSettings["connectionString"];
-            DbProviderFactory factory = DbProviderFactories.GetFactory(provider);
-
-            using (DbConnection connection = factory.CreateConnection())
-            {
-                if(connection == null)
-                {
-                    TextBoxCons.Text = "Notconnected\n";
-                    return;
-
-                }
-                connection.ConnectionString = connectionString;
-                connection.Open();
-
-                DbCommand command = factory.CreateCommand();
-
-                if (command == null)
-                {
-                    TextBoxCons.Text = "Command error\n";
-                    return;
-                }
-
-                command.Connection = connection;
-                command.CommandText = "Select * From Products";
-                using (DbDataReader dataReader = command.ExecuteReader())
-                {
-                    while(dataReader.Read())
-                    {
-                        TextBoxCons.Text += ($"{dataReader["Id"]}" + $"{dataReader["Product"]}");
-                    }
-
-                }
-
-            }
-
+            msql.OpenConnection();
+            OpenB.Visibility = System.Windows.Visibility.Hidden;
+            TextBoxCons.Text = "Connected\n";
         }
 
-        private void ReadData_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
+            TextBoxCons.Text = msql.ReadD();
+        }
 
+        private void TestInsert_click(object sender, RoutedEventArgs e)
+        {
+            TextBoxCons.Text = msql.InsertD();
         }
     }
 }
