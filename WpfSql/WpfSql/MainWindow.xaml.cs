@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
+using System.Data.Common;
 
 namespace WpfSql
 {
@@ -20,29 +22,71 @@ namespace WpfSql
     /// </summary>
     public partial class MainWindow : Window
     {
-        mySql msql = new mySql();
+
+ 
+
         public MainWindow()
         {
+
             InitializeComponent();
+
+
+
+
+
+
+
 
         }
 
         public void OpenB_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBoxCons.Text != "Connected")
-            { TextBoxCons.Text = msql.mySQLopen(); }
-            else { TextBoxCons.Text = msql.mySQLclose(); }
+            string provider = ConfigurationManager.AppSettings["provider"];
+            string connectionString = ConfigurationManager.AppSettings["connectionString"];
+            DbProviderFactory factory = DbProviderFactories.GetFactory(provider);
+
+            using (DbConnection connection = factory.CreateConnection())
+            {
+                if(connection == null)
+                {
+                    TextBoxCons.Text = "Notconnected\n";
+                    return;
+
+                }
+                connection.ConnectionString = connectionString;
+                connection.Open();
+
+                DbCommand command = factory.CreateCommand();
+
+                if (command == null)
+                {
+                    TextBoxCons.Text = "Command error\n";
+                    return;
+                }
+
+                command.Connection = connection;
+                command.CommandText = "Select * From Products";
+                using (DbDataReader dataReader = command.ExecuteReader())
+                {
+                    while(dataReader.Read())
+                    {
+                        TextBoxCons.Text += ($"{dataReader["Id"]}" + $"{dataReader["Product"]}");
+                    }
+
+                }
+
+            }
+
         }
 
         private void ReadData_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxCons.Text += msql.mySQLdataRead();
+
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxCons.Text += msql.mySQLcmd();
-            //TextBoxCons.Text += msql.mySQLdataRead();
+
         }
     }
 }
